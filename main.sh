@@ -8,24 +8,23 @@
 set -o errexit -o nounset -o pipefail
 shopt -s inherit_errexit lastpipe
 
-script_dir="$( dirname -- "${BASH_SOURCE[0]}" )"
-script_dir="$( cd -- "$script_dir" && pwd )"
-readonly script_dir
-script_name="$( basename -- "${BASH_SOURCE[0]}" )"
-readonly script_name
+_script_dir="$( dirname -- "${BASH_SOURCE[0]}" )"
+_script_dir="$( cd -- "$_script_dir" && pwd )"
+readonly _script_dir
+_script_name="$( basename -- "${BASH_SOURCE[0]}" )"
+readonly _script_name
 
-readonly tests_dir="$script_dir/.."
-readonly lib_dir="$tests_dir/lib"
+readonly tests_dir="$_script_dir/.."
 
-source "$script_dir/lib/log.sh"
+source "$_script_dir/lib/log.sh"
 
 run_test_file() {
     local test_file
     for test_file; do
-        source "$script_dir/lib/test.sh"
+        source "$_script_dir/lib/test.sh"
 
         local lib_file
-        find "$lib_dir" \
+        find "$tests_dir/lib" \
             -mindepth 1 \
             -maxdepth 1 \
             -type f \
@@ -59,7 +58,7 @@ run_test_file() {
 
 main() {
     if [ "$#" -gt 1 ]; then
-        echo "usage: $script_name [PATTERN]" >&2
+        echo "usage: $_script_name [PATTERN]" >&2
         return 1
     fi
 
