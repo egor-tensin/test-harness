@@ -8,22 +8,39 @@ Used in a bunch of projects of mine, for example:
 * [tag-release](https://github.com/egor-tensin/tag-release/tree/master/test)
 * [config-links](https://github.com/egor-tensin/config-links/tree/master/test)
 
+Integration
+-----------
+
+* Can be added as a submodule like so:
+
+      > cd my/project/test
+      > git submodule add https://github.com/egor-tensin/test-harness.git runner
+
+    * Run tests using the `harness` script:
+
+          > ./test/runner/harness
+
+    * This will pick up all test files in "project/test/".
+
+* Alternatively, check out this repo somewhere and use the `-d` parameter to
+specify the path to the tests directory.
+
 Usage
 -----
 
-Supposed to be added as a submodule like so:
+* By default, all tests in the parent directory are run:
 
-    > cd my/project/test
-    > git submodule add https://github.com/egor-tensin/test-harness.git runner
+      ./test/runner/harness    # Runs all tests in the test/ directory
 
-This will add it as a submodule in `test/runner/` in your project's directory.
+* You can filter tests to run using the `-f`/`--filter` parameter (uses
+fnmatch(3)):
 
-Run tests using the main.sh script:
+      ./test/runner/harness -f '*'          # Runs all tests still
+      ./test/runner/harness -f '*label*'    # Collects all test files containing "label"
 
-    > ./test/runner/main.sh
+* Specify a directory to collect tests from using the `-d`/`--dir` parameter:
 
-The script will discover all your tests in the parent directory, run them and
-print a short summary.
+      ./harness -d path/to/tests/
 
 API
 ---
