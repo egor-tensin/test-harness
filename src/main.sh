@@ -136,6 +136,11 @@ _test_main() {
         test_files+=("$test_file")
     done
 
+    if [ "${#test_files[@]}" -eq 0 ]; then
+        echo "No tests found in $tests_dir"
+        return 0
+    fi
+
     _test_run_file ${test_files[@]+"${test_files[@]}"}
     _log_tests_summary
 }
