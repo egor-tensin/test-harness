@@ -6,13 +6,13 @@
 test_should_fail=
 test_root_dir=
 
-test_setup_global() {
+_test_setup_global() {
     test_root_dir="$( mktemp -d )"
     # mktemp returns /var/..., which is actually in /private/var/... on macOS.
     test_root_dir="$( readlink -e -- "$test_root_dir" )"
 }
 
-test_cleanup_global() {
+_test_cleanup_global() {
     if [ "$( type -t test_cleanup )" == function ]; then
         test_cleanup || true
     fi

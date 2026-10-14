@@ -19,7 +19,7 @@ readonly tests_dir="$_script_dir/.."
 
 source "$_script_dir/lib/log.sh"
 
-run_test_file() {
+_test_run_file() {
     local test_file
     for test_file; do
         source "$_script_dir/lib/test.sh"
@@ -39,7 +39,7 @@ run_test_file() {
 
         source "$tests_dir/$test_file"
 
-        log_test_start "$test_file"
+        _log_test_start "$test_file"
 
         set +e
         (
@@ -47,18 +47,18 @@ run_test_file() {
             shopt -s inherit_errexit 2> /dev/null || true
             shopt -s lastpipe
 
-            trap test_cleanup_global EXIT
-            test_setup_global
+            trap _test_cleanup_global EXIT
+            _test_setup_global
             test_run
         )
         local ret="$?"
         set -e
 
-        log_test_finish "$test_file" "$ret"
+        _log_test_finish "$test_file" "$ret"
     done
 }
 
-main() {
+_test_main() {
     if [ "$#" -gt 1 ]; then
         echo "usage: $_script_name [PATTERN]" >&2
         return 1
@@ -84,8 +84,8 @@ main() {
         test_files+=("$test_file")
     done
 
-    run_test_file ${test_files[@]+"${test_files[@]}"}
-    log_tests_summary
+    _test_run_file ${test_files[@]+"${test_files[@]}"}
+    _log_tests_summary
 }
 
-main "$@"
+_test_main "$@"
