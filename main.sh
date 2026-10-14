@@ -6,7 +6,8 @@
 # Distributed under the MIT License.
 
 set -o errexit -o nounset -o pipefail
-shopt -s inherit_errexit lastpipe
+shopt -s inherit_errexit 2> /dev/null || true
+shopt -s lastpipe
 
 _script_dir="$( dirname -- "${BASH_SOURCE[0]}" )"
 _script_dir="$( cd -- "$_script_dir" && pwd )"
@@ -43,7 +44,8 @@ run_test_file() {
         set +e
         (
             set -o errexit -o nounset -o pipefail
-            shopt -s inherit_errexit lastpipe
+            shopt -s inherit_errexit 2> /dev/null || true
+            shopt -s lastpipe
 
             trap test_cleanup_global EXIT
             test_setup_global
