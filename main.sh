@@ -15,6 +15,7 @@ script_name="$( basename -- "${BASH_SOURCE[0]}" )"
 readonly script_name
 
 readonly tests_dir="$script_dir/.."
+readonly lib_dir="$tests_dir/lib"
 
 source "$script_dir/lib/log.sh"
 
@@ -22,6 +23,20 @@ run_test_file() {
     local test_file
     for test_file; do
         source "$script_dir/lib/test.sh"
+
+        local lib_file
+        find "$lib_dir" \
+            -mindepth 1 \
+            -maxdepth 1 \
+            -type f \
+            -name '*.sh' \
+            -print0 \
+            | sort -z \
+            | \
+        while IFS= read -d '' -r lib_file; do
+            source "$lib_file"
+        done
+
         source "$tests_dir/$test_file"
 
         log_test_start "$test_file"
