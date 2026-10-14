@@ -32,13 +32,16 @@ API
 
 * All tests are stored in `tst-*.sh` files in the parent directory of the runner.
 * All tests are `source`d by a bash script, so they must be bash code too.
-* All tests should have the `test_run` function, which will be executed.
+* All tests must have the `test_run` function, which will be executed.
+* All files in the "lib" subdirectory of the tests directory will be `source`d
+independently for each test.
+This allows maintaining a library of common routines.
 
 ### Global state
 
 * The runner sets the following global variables:
     * `test_root_dir`: a temporary directory unique for each test.
-The test can do whatever it wants in it; it'll get deleted after test's
+A test can do whatever it wants in it; it'll get deleted after test's
 completion.
     * `tests_dir`: the root directory with all the tests.
 It can be used for relative paths.
@@ -64,7 +67,7 @@ shell-ready format.
 You can indicate that a test is expected to fail by setting the
 `test_should_fail` variable to a non-empty string in the test file.
 If such test's `test_run` function exits with anything but 0 then, it will
-still count as successful test run.
+still count as a successful test run.
 
 License
 -------
