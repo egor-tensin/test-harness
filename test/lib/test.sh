@@ -1,5 +1,5 @@
 test_run_harness() {
-    "$tests_dir/../harness" -d "$test_root_dir" 2>&1
+    "$tests_dir/../harness" -d "$test_root_dir" "$@" 2>&1
 }
 
 test_check_harness_log() {
@@ -11,11 +11,10 @@ test_check_harness_log() {
     local output="$1"
     shift
 
-    log "Checking output log for a substring..."
-
     local str
     for str; do
-        if ! echo "$output" | grep -F $'\n'"$str"$'\n' > /dev/null; then
+        log "Checking output log for line: $str"
+        if ! echo "$output" | grep -F --line-regexp "$str" > /dev/null; then
             fail "Couldn't find the expected string: $str"
             return 1
         fi
