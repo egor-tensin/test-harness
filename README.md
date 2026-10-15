@@ -65,6 +65,8 @@ A test can do whatever it wants in it; it'll get deleted after test's
 completion.
     * `tests_dir`: the root directory with all the tests.
 It can be used for relative paths.
+    * `test_file`: the basename of the test file being executed (e.g.
+"tst-example.sh").
 
 ### Hooks
 
