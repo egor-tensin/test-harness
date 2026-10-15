@@ -24,18 +24,20 @@ _test_run_file() {
     for test_file; do
         source "$_script_dir/test.sh"
 
-        local lib_file
-        find "$tests_dir/lib" \
-            -mindepth 1 \
-            -maxdepth 1 \
-            -type f \
-            -name '*.sh' \
-            -print0 \
-            | sort -z \
-            | \
-        while IFS= read -d '' -r lib_file; do
-            source "$lib_file"
-        done
+        if [ -d "$tests_dir/lib" ]; then
+            local lib_file
+            find "$tests_dir/lib" \
+                -mindepth 1 \
+                -maxdepth 1 \
+                -type f \
+                -name '*.sh' \
+                -print0 \
+                | sort -z \
+                | \
+            while IFS= read -d '' -r lib_file; do
+                source "$lib_file"
+            done
+        fi
 
         source "$tests_dir/$test_file"
 
