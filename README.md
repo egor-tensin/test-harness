@@ -7,6 +7,7 @@ Used in a bunch of projects of mine, for example:
 
 * [tag-release](https://github.com/egor-tensin/tag-release/tree/master/test)
 * [config-links](https://github.com/egor-tensin/config-links/tree/master/test)
+* [cgitize](https://github.com/egor-tensin/cgitize/tree/master/test/integration)
 
 Integration
 -----------
