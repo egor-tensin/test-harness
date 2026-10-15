@@ -1,6 +1,8 @@
 test-harness
 ============
 
+[![CI](https://github.com/egor-tensin/test-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/egor-tensin/test-harness/actions/workflows/ci.yml)
+
 A simple bash-based harness for integration tests.
 
 Used in a bunch of projects of mine, for example:
